@@ -4,7 +4,12 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
   />
 </head>
-
+<div
+  *ngIf="!Courses.length"
+  class="text-danger d-flex align-items-center justify-content-center m-5 fa-2x"
+>
+  No courses found in Favourite List
+</div>
 <div *ngIf="Courses.length" class="courses-container">
   <div *ngFor="let course of Courses | search : searchTerm" class="course-card">
     <div>

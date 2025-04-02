@@ -30,7 +30,7 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client
   },
   {
-    path: 'admin/showlesson/:id/:courseId',
+    path: 'showlesson/:id/:courseId',
     renderMode: RenderMode.Client
   },
   {

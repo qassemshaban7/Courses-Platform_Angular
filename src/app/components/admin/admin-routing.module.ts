@@ -11,7 +11,6 @@ import { EditInstructorComponent } from './edit-instructor/edit-instructor.compo
 import { AddLessonComponent } from './add-lesson/add-lesson.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
-import { ShowLessonComponent } from '../shared/show-lesson/show-lesson.component';
 
 const routes: Routes = [
 
@@ -26,7 +25,6 @@ const routes: Routes = [
     {path:'lessons/:courseid', canActivate:[AdminGuard],component:LessonComponent, title:'Lessons Page'},
     {path:'addlesson/:courseid', canActivate:[AdminGuard],component:AddLessonComponent, title:'Add Lesson Page'},
     {path:'editlesson/:id/:courseId', canActivate:[AdminGuard],component:EditLessonComponent, title:'Edit Lesson Page'},
-    {path:'showlesson/:id/:courseId', canActivate:[AdminGuard],component:ShowLessonComponent, title:'Show Lesson Page'},
 
 ];
 

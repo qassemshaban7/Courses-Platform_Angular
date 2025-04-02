@@ -9,6 +9,7 @@ import { SendPinComponent } from './components/shared/send-pin/send-pin.componen
 import { EnterPinComponent } from './components/shared/enter-pin/enter-pin.component';
 import { ForgetPasswordComponent } from './components/shared/forget-password/forget-password.component';
 import { FavouriteComponent } from './components/shared/favourite/favourite.component';
+import { ShowLessonComponent } from './components/shared/show-lesson/show-lesson.component';
 //import { SettingModule } from './setting/setting.module';
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   {path:'forgetpassword/:email', component:ForgetPasswordComponent, title:'Forget Password Page'},
   {path:'home', canActivate:[AuthGuard],component:HomeComponent, title:'Home Page'},
   {path:'coursedeatils/:id/:fav/:vote', canActivate:[AuthGuard], component:CourseDetailsComponent, title:'Course Details Page'},
+  {path:'showlesson/:id/:courseId', canActivate:[AuthGuard],component:ShowLessonComponent, title:'Show Lesson Page'},
 
   {path:'favourite', canActivate:[AuthGuard],component:FavouriteComponent, title:'Favourite Page'},
 
