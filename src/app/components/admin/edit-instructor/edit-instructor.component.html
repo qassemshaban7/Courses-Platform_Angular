@@ -1,0 +1,81 @@
+<h2 class="text-center py-2 mt-2">Edit Instructor</h2>
+<div class="w-75 mx-auto">
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  <form [formGroup]="editInstructorForm" (ngSubmit)="onSubmit()" class="mt-3">
+    <label for="Name">Instructor Name :</label>
+    <input
+      id="Name"
+      formControlName="Name"
+      placeholder="Enter Instructor Name"
+      class="form-control mb-2"
+      [ngClass]="{
+        'is-invalid': f['Name'].invalid && f['Name'].touched
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Name'].invalid && f['Name'].touched"
+    >
+      <div *ngIf="f['Name'].errors?.['required']">
+        Instructor Name is required.
+      </div>
+    </div>
+
+    <label for="Description">Description :</label>
+    <textarea
+      id="Description"
+      formControlName="Description"
+      placeholder="Enter Instructor Description"
+      class="form-control mb-2"
+      [ngClass]="{
+        'is-invalid': f['Description'].invalid && f['Description'].touched
+      }"
+    ></textarea>
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Description'].invalid && f['Description'].touched"
+    >
+      <div *ngIf="f['Description'].errors?.['required']">
+        Description is required.
+      </div>
+    </div>
+
+    <label for="Imageprofile">Instructor Image :</label>
+    <input
+      id="Imageprofile"
+      type="file"
+      accept=".jpg, .png"
+      class="form-control mb-2"
+      (change)="onFileSelected($event)"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Imageprofile'].invalid && f['Imageprofile'].touched"
+    >
+      <div *ngIf="f['Imageprofile'].errors?.['required']">
+        Image is required.
+      </div>
+      <div *ngIf="f['Imageprofile'].errors?.['invalidImageType']">
+        Only .png and .jpg images are allowed!
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3 mt-3 mb-5">
+      <button
+        type="submit"
+        class="btn btn-primary w-50 d-flex justify-content-center align-items-center"
+      >
+        <span *ngIf="isLoading"> <i class="fas fa-spinner fa-spin"></i> </span>
+        <span *ngIf="!isLoading">Update</span>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-danger w-50 d-flex justify-content-center align-items-center"
+        routerLink="/admin/instructors"
+      >
+        <span>Back To List</span>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,53 @@
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+  />
+</head>
+
+<div *ngIf="Courses.length" class="courses-container">
+  <div *ngFor="let course of Courses | search : searchTerm" class="course-card">
+    <div>
+      <button
+        *ngIf="!course.favorate"
+        class="favorite-btn"
+        (click)="addToFavorite(course.id)"
+      >
+        <i class="bi bi-heart"></i>
+      </button>
+      <button
+        *ngIf="course.favorate"
+        class="favorite-btn"
+        (click)="deleteFromFavorite(course.id)"
+      >
+        <i class="bi bi-heart-fill text-danger"></i>
+      </button>
+      <img
+        class="course-image"
+        [src]="course.imageOfCertificate"
+        alt="Course Certificate"
+      />
+      <a
+        [routerLink]="[
+          '/coursedeatils',
+          course.id,
+          course.favorate,
+          course.vote
+        ]"
+      >
+        <div class="course-info">
+          <h3 class="course-title">{{ course.name }}</h3>
+          <p class="course-description">{{ course.description | seemore }}</p>
+          <div class="course-footer">
+            <span class="course-vote">
+              <ng-container *ngFor="let star of stars(course.vote)">
+                <span class="star">&#9733;</span>
+              </ng-container>
+            </span>
+            <span class="course-price">${{ course.price }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

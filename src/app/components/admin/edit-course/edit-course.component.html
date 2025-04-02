@@ -1,0 +1,147 @@
+<h2 class="text-center py-2 mt-2">Edit Course</h2>
+<div class="w-75 mx-auto">
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  <form [formGroup]="editCourseForm" (ngSubmit)="onSubmit()" class="mt-1">
+    <label for="Name">Course Name :</label>
+    <input
+      id="Name"
+      formControlName="Name"
+      placeholder="Enter Course Name"
+      class="form-control mb-2"
+      [ngClass]="{
+        'is-invalid': f['Name'].invalid && f['Name'].touched
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Name'].invalid && f['Name'].touched"
+    >
+      <div *ngIf="f['Name'].errors?.['required']">Course Name is required.</div>
+    </div>
+
+    <label for="Description">Description :</label>
+    <textarea
+      id="Description"
+      formControlName="Description"
+      placeholder="Enter Course Description"
+      class="form-control mb-2"
+      autocomplete="additional-name"
+      [ngClass]="{
+        'is-invalid': f['Description'].invalid && f['Description'].touched
+      }"
+    ></textarea>
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Description'].invalid && f['Description'].touched"
+    >
+      <div *ngIf="f['Description'].errors?.['Description']">
+        Description is required.
+      </div>
+    </div>
+
+    <label for="Price">Course Price :</label>
+    <input
+      id="Price"
+      formControlName="Price"
+      placeholder="Enter Course Price"
+      class="form-control mb-2"
+      type="number"
+      [ngClass]="{
+        'is-invalid': f['Price'].invalid && f['Price'].touched
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Price'].invalid && f['Price'].touched"
+    >
+      <div *ngIf="f['Price'].errors?.['required']">
+        Course Price is required.
+      </div>
+    </div>
+
+    <label for="ImageOfCertificate">Course Image :</label>
+    <input
+      id="ImageOfCertificate"
+      type="file"
+      accept=".jpg, .png"
+      class="form-control mb-2"
+      (change)="onFileSelected($event)"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['ImageOfCertificate'].invalid && f['ImageOfCertificate'].touched"
+    >
+      <div *ngIf="f['ImageOfCertificate'].errors?.['required']">
+        Image is required.
+      </div>
+      <div *ngIf="f['ImageOfCertificate'].errors?.['invalidImageType']">
+        Only .png and .jpg images are allowed!
+      </div>
+    </div>
+    <!-- ! Categories -->
+    <label for="Category_Id">Course Category:</label>
+    <select
+      id="Category_Id"
+      formControlName="Category_Id"
+      class="form-control mb-2"
+      [ngClass]="{
+        'is-invalid': f['Category_Id'].invalid && f['Category_Id'].touched
+      }"
+    >
+      <option value="" selected disabled>Select Category</option>
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Category_Id'].invalid && f['Category_Id'].touched"
+    >
+      <div *ngIf="f['Category_Id'].errors?.['required']">
+        Course Category is required.
+      </div>
+    </div>
+
+    <!-- ! Instructors -->
+    <label for="Instructor_Id">Course Instructor:</label>
+    <select
+      id="Instructor_Id"
+      formControlName="Instructor_Id"
+      class="form-control mb-2"
+      [ngClass]="{
+        'is-invalid': f['Instructor_Id'].invalid && f['Instructor_Id'].touched
+      }"
+    >
+      <option value="" selected disabled>Select Instructor</option>
+      <option *ngFor="let instructor of instructors" [value]="instructor.id">
+        {{ instructor.name }}
+      </option>
+    </select>
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Instructor_Id'].invalid && f['Instructor_Id'].touched"
+    >
+      <div *ngIf="f['Instructor_Id'].errors?.['required']">
+        Course Instructor is required.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3 mt-3 mb-5">
+      <button
+        type="submit"
+        class="btn btn-primary w-50 d-flex justify-content-center align-items-center"
+      >
+        <span *ngIf="isLoading"> <i class="fas fa-spinner fa-spin"></i> </span>
+        <span *ngIf="!isLoading">Update</span>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-danger w-50 d-flex justify-content-center align-items-center"
+        routerLink="/admin/courses"
+      >
+        <span>Back To List</span>
+      </button>
+    </div>
+  </form>
+</div>

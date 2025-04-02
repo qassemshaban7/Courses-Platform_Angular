@@ -1,0 +1,18 @@
+<div class="container d-flex flex-column align-items-center">
+  <h1>Profile</h1>
+  <img
+    *ngIf="userData.userName !== 'admin'"
+    [src]="userData.image"
+    alt="profile"
+    class="w-25 profile-image"
+  />
+  <img
+    *ngIf="userData.userName == 'admin'"
+    src="https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png"
+    alt="profile"
+    class="w-25 profile-image"
+  />
+
+  <h3>{{ userData.userName }}</h3>
+  <h3>{{ userData.email }}</h3>
+</div>

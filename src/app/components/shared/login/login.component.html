@@ -1,0 +1,85 @@
+<img
+  src="assets/images/logo.png"
+  alt="logo"
+  style="width: 10%"
+  class="d-flex justify-content-center align-content-center m-auto"
+/>
+<h2 class="text-center">Login</h2>
+<div class="w-75 mx-auto">
+  <div *ngIf="errorMessage" class="text-center alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-3">
+    <label for="email">Email :</label>
+    <input
+      id="email"
+      formControlName="email"
+      class="form-control mb-2"
+      placeholder="Enter your email"
+      [ngClass]="{ 'is-invalid': f['email'].invalid && f['email'].touched }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['email'].invalid && f['email'].touched"
+    >
+      <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+      <div *ngIf="f['email'].errors?.['email']">
+        Please enter a valid email address.
+      </div>
+    </div>
+
+    <label for="password">Password :</label>
+    <div class="input-group mb-2">
+      <input
+        id="password"
+        formControlName="password"
+        placeholder="Enter your password"
+        [type]="passwordVisible ? 'text' : 'password'"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': f['password'].invalid && f['password'].touched
+        }"
+      />
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="togglePasswordVisibility()"
+      >
+        <i
+          class="fas"
+          [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash'"
+        ></i>
+      </button>
+      <div
+        class="invalid-feedback"
+        *ngIf="f['password'].invalid && f['password'].touched"
+      >
+        <div *ngIf="f['password'].errors?.['required']">
+          Password is required.
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-primary w-100 d-flex justify-content-center align-items-center mt-3 mb-2 m-auto"
+      (click)="onSubmit()"
+    >
+      <span *ngIf="isLoading"> <i class="fas fa-spinner fa-spin"></i> </span>
+      <span *ngIf="!isLoading">Login</span>
+    </button>
+
+    <div class="d-flex justify-content-between w-100 mb-5">
+      <div class="w-50 text-start">
+        <a routerLink="/sendpin" class="text-decoration-none">
+          Forgot Password?
+        </a>
+      </div>
+      <div class="w-50 text-end">
+        <a routerLink="/register" class="text-decoration-none">
+          Don't have an account? Register
+        </a>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <div *ngIf="message" class="alert alert-success">{{ message }}</div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-primary">Instructors List</h2>
+    <button class="btn btn-success" routerLink="/admin/addinstructor">
+      <i class="bi bi-plus-lg"></i> Add Instructor
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="table-primary text-center">
+          <th>Name</th>
+          <th>Description</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let Ins of Instructors | search : searchTerm"
+          class="text-center align-middle"
+        >
+          <td>{{ Ins.name }}</td>
+          <td>{{ Ins.description }}</td>
+          <td>
+            <button
+              class="btn btn-warning btn-sm"
+              routerLink="/admin/editinstructor/{{ Ins.id }}"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="deleteInstructor(Ins.id)"
+            >
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

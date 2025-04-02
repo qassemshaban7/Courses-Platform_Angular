@@ -1,0 +1,78 @@
+<h2 class="text-center py-2 mt-2">Add Lesson</h2>
+<div class="w-75 mx-auto">
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  <form [formGroup]="addLessonForm" (ngSubmit)="onSubmit()" class="mt-1">
+    <label for="Name">Lesson Name :</label>
+    <input
+      id="Name"
+      formControlName="Name"
+      placeholder="Enter Lesson Name"
+      class="form-control mb-2"
+      [ngClass]="{
+        'is-invalid': f['Name'].invalid && f['Name'].touched
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Name'].invalid && f['Name'].touched"
+    >
+      <div *ngIf="f['Name'].errors?.['required']">Lesson Name is required.</div>
+    </div>
+
+    <label for="Description">Description :</label>
+    <textarea
+      id="Description"
+      formControlName="Description"
+      placeholder="Enter Lesson Description"
+      class="form-control mb-2"
+      autocomplete="additional-name"
+      [ngClass]="{
+        'is-invalid': f['Description'].invalid && f['Description'].touched
+      }"
+    ></textarea>
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Description'].invalid && f['Description'].touched"
+    >
+      <div *ngIf="f['Description'].errors?.['required']">
+        Description is required.
+      </div>
+    </div>
+
+    <label for="VideoFile">Lesson Video :</label>
+    <input
+      id="VideoFile"
+      type="file"
+      accept=".mp4, .mkv, .avi"
+      class="form-control mb-2"
+      (change)="onFileSelected($event)"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['VideoFile'].invalid && f['VideoFile'].touched"
+    >
+      <div *ngIf="f['VideoFile'].errors?.['required']">Video is required.</div>
+      <div *ngIf="f['VideoFile'].errors?.['invalidVideoType']">
+        Only .mp4, .avi, and .mkv videos are allowed!
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3 mt-3 mb-5">
+      <button
+        type="submit"
+        class="btn btn-primary w-50 d-flex justify-content-center align-items-center"
+      >
+        <span *ngIf="isLoading"> <i class="fas fa-spinner fa-spin"></i> </span>
+        <span *ngIf="!isLoading">Add</span>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-danger w-50 d-flex justify-content-center align-items-center"
+        [routerLink]="['/admin/lessons', courseId]"
+      >
+        <span>Back To List</span>
+      </button>
+    </div>
+  </form>
+</div>

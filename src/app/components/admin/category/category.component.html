@@ -1,0 +1,42 @@
+<div class="container m-3 m-auto">
+  <div
+    class="mt-2"
+    *ngIf="message"
+    class="alert"
+    [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'"
+  >
+    {{ message }}
+  </div>
+
+  <div class="input-group mt-3 mb-3">
+    <input
+      #categoryInput
+      required
+      type="text"
+      class="form-control"
+      placeholder="New category name"
+    />
+    <button class="btn btn-success" (click)="addCategory(categoryInput)">
+      Add
+    </button>
+  </div>
+
+  <div class="row">
+    <div
+      class="col-md-4"
+      *ngFor="let category of CategoriesData | search : searchTerm"
+    >
+      <div class="card mt-2 mb-2">
+        <div class="card-body">
+          <h5 class="card-title">{{ category.name }}</h5>
+          <button class="btn btn-primary me-2" (click)="editCategory(category)">
+            Edit
+          </button>
+          <button class="btn btn-danger" (click)="deleteCategory(category.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+  />
+</head>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="course-header">
+        <h4 class="fw-bold">Course Details</h4>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <img
+        *ngIf="CourseData?.imageOfCertificate"
+        [src]="CourseData?.imageOfCertificate"
+        class="img-fluid rounded mb-2 w-100"
+        alt="Course Image"
+        style="object-fit: cover"
+      />
+
+      <div
+        class="course-title d-flex align-items-center justify-content-between"
+      >
+        <h3 class="fw-bold" *ngIf="CourseData?.name">{{ CourseData.name }}</h3>
+
+        <button
+          *ngIf="!favorite"
+          class="favorite-btn"
+          (click)="addToFavorite()"
+        >
+          <i class="bi bi-heart"></i>
+        </button>
+        <button
+          *ngIf="favorite"
+          class="favorite-btn"
+          (click)="deleteFromFavorite()"
+        >
+          <i class="bi bi-heart-fill text-danger"></i>
+        </button>
+      </div>
+
+      <p class="course-description" *ngIf="CourseData?.description">
+        {{ CourseData.description }}
+      </p>
+
+      <div class="rating-section">
+        <h5 class="fw-bold">Rate this Course</h5>
+        <div class="stars">
+          <i
+            *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
+            class="bi"
+            [ngClass]="
+              voteValue >= star ? 'bi-star-fill text-warning' : 'bi-star'
+            "
+            (click)="setVote(star)"
+          ></i>
+        </div>
+        <p *ngIf="voteValue" class="mt-2">Your rating: {{ voteValue }}/5</p>
+      </div>
+
+      <div class="course-footer mt-3 d-flex align-items-center">
+        <span class="course-vote">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <i
+              class="bi"
+              [ngClass]="star ? 'bi-star-fill text-warning' : 'bi-star'"
+            ></i>
+          </ng-container>
+        </span>
+        <span class="ms-2">(votes)</span>
+      </div>
+
+      <div *ngIf="instructorsData?.name" class="instructor-section">
+        <h4 class="fw-bold">Instructor</h4>
+        <div class="instructor-card d-flex align-items-center">
+          <img
+            *ngIf="instructorsData?.photo"
+            [src]="instructorsData.photo"
+            class="instructor-photo me-3"
+            alt="Instructor"
+          />
+          <div>
+            <h5 class="fw-bold">{{ instructorsData.name }}</h5>
+            <p
+              class="instructor-description"
+              *ngIf="instructorsData?.description"
+            >
+              {{ instructorsData.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="fw-bold">Lessons</h4>
+      <div class="list-group">
+        <a
+          *ngFor="let lesson of LessonsData; let i = index"
+          [routerLink]="['/showlesson', lesson.lessonId, courseId]"
+          class="gro list-group-item list-group-item-action d-flex align-items-center"
+        >
+          <video
+            [src]="lesson.videoUrl"
+            class="lesson-thumbnail"
+            alt="Lesson Thumbnail"
+          ></video>
+          <span class="fw-bold ms-3"
+            >Lesson {{ i + 1 }}: {{ lesson.lessonName }}</span
+          >
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

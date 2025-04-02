@@ -1,0 +1,160 @@
+<img
+  src="assets/images/logo.png"
+  alt="logo"
+  style="width: 10%"
+  class="d-flex justify-content-center align-content-center m-auto"
+/>
+<h2 class="text-center">Register</h2>
+<div class="w-75 mx-auto">
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mt-1">
+    <label for="userName">User Name :</label>
+    <input
+      id="userName"
+      formControlName="userName"
+      placeholder="Enter your user name"
+      class="form-control mb-2"
+      [ngClass]="{
+        'is-invalid': f['userName'].invalid && f['userName'].touched
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['userName'].invalid && f['userName'].touched"
+    >
+      <div *ngIf="f['userName'].errors?.['required']">
+        User Name is required.
+      </div>
+      <div *ngIf="f['userName'].errors?.['minlength']">
+        User Name must be at least 5 characters long.
+      </div>
+    </div>
+
+    <label for="Email">Email :</label>
+    <input
+      id="Email"
+      formControlName="Email"
+      placeholder="Enter your email"
+      class="form-control mb-2"
+      [ngClass]="{ 'is-invalid': f['Email'].invalid && f['Email'].touched }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Email'].invalid && f['Email'].touched"
+    >
+      <div *ngIf="f['Email'].errors?.['required']">Email is required.</div>
+      <div *ngIf="f['Email'].errors?.['email']">
+        Please enter a valid email address.
+      </div>
+    </div>
+
+    <label for="Image">Your Image :</label>
+    <input
+      id="Image"
+      type="file"
+      accept=".jpg, .png"
+      class="form-control mb-2"
+      (change)="onFileSelected($event)"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="f['Image'].invalid && f['Image'].touched"
+    >
+      <div *ngIf="f['Image'].errors?.['required']">Image is required.</div>
+      <div *ngIf="f['Image'].errors?.['invalidImageType']">
+        Only .png and .jpg images are allowed!
+      </div>
+    </div>
+
+    <label for="Password">Password :</label>
+    <div class="input-group mb-2">
+      <input
+        id="Password"
+        formControlName="Password"
+        placeholder="Enter your password"
+        [type]="passwordVisible ? 'text' : 'password'"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': f['Password'].invalid && f['Password'].touched
+        }"
+      />
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="togglePasswordVisibility()"
+      >
+        <i
+          class="fas"
+          [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash'"
+        ></i>
+      </button>
+      <div
+        class="invalid-feedback"
+        *ngIf="f['Password'].invalid && f['Password'].touched"
+      >
+        <div *ngIf="f['Password'].errors?.['required']">
+          Password is required.
+        </div>
+        <div *ngIf="f['Password'].errors?.['minlength']">
+          Password must be at least 8 characters long.
+        </div>
+        <div *ngIf="f['Password'].errors?.['passwordStrength']">
+          Password must contain at least one lowercase, one uppercase, one
+          digit, and one special character.
+        </div>
+      </div>
+    </div>
+
+    <label for="ConfirmPassword">Confirm Password :</label>
+    <div class="input-group mb-2">
+      <input
+        id="ConfirmPassword"
+        formControlName="ConfirmPassword"
+        placeholder="Confirm your password"
+        [type]="confirmPasswordVisible ? 'text' : 'password'"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            (f['ConfirmPassword'].invalid && f['ConfirmPassword'].touched) ||
+            registerForm.hasError('passwordMismatch')
+        }"
+      />
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="toggleConfirmPasswordVisibility()"
+      >
+        <i
+          class="fas"
+          [ngClass]="confirmPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"
+        ></i>
+      </button>
+      <div
+        class="invalid-feedback"
+        *ngIf="f['ConfirmPassword'].invalid && f['ConfirmPassword'].touched"
+      >
+        <div *ngIf="f['ConfirmPassword'].errors?.['required']">
+          Confirm Password is required.
+        </div>
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="
+          registerForm.hasError('passwordMismatch') &&
+          f['ConfirmPassword'].touched
+        "
+      >
+        Passwords don't match.
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-primary w-100 d-flex justify-content-center align-items-center m-auto mt-3 mb-5"
+      (click)="onSubmit()"
+    >
+      <span *ngIf="isLoading"> <i class="fas fa-spinner fa-spin"></i> </span>
+      <span *ngIf="!isLoading">Register</span>
+    </button>
+  </form>
+</div>
